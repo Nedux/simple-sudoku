@@ -1,19 +1,18 @@
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.pre-filled {
+    font-weight: bold;
 }
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+h1{
+    margin-bottom: 0px;
 }
-
 table{
     margin: auto;
     border: solid black 4px;
+    border-bottom: black solid 1px;
+    border-left: black solid 1px;
+    margin-bottom: 20px;
 }
+
 table tr div{
     border-bottom: solid black 1px;
     padding: 0;
@@ -21,15 +20,16 @@ table tr div{
 }
 
 table tr td{
-    border-bottom: solid black 1px;
+    border-bottom: solid 1px;
 }
 
-table tr:nth-child(3) td, table tr:nth-child(6) td 
+
+table tr:nth-child(3n) td
 {
     border-bottom: solid black 3px; 
 }
 
-table tr td:nth-child(4), table tr td:nth-child(7)
+table tr td:nth-child(3n+1)
 {
     border-left: solid black 3px !important;
 }
@@ -52,26 +52,49 @@ table tr td input:focus{
     outline: none;
 }
 
-.btn-wraper
+.wraper
 {
-    margin-top: 30px;
     display: flex;
+    font-weight: bold;
     justify-content: center;
 }
 
-.btn-wraper button:nth-child(1)
+.succ
+{
+    color: #82DD55;
+}
+.err
+{
+    color: #E23636;
+}
+.err p, .succ p
+{
+    margin-top: 0px;
+}
+
+.hide
+{
+    display: none;
+}
+
+.btn
+{
+    margin-top: 5px;
+}
+.btn button:nth-child(1)
 {
     margin-right: 30px;
 }
 
-.btn-wraper button
+.btn button
 {
     user-select: none;
     height: 30px;
     width: 75px;
 }
 
-.btn-wraper button:hover
+.btn button:hover
 {
     cursor: pointer;
 }
+
