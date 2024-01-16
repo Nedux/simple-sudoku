@@ -6,26 +6,45 @@
     <title>SUDOKU</title>
     <link rel="stylesheet" href="./Style/style.css">
   </head>
-  <body>    
+  <body>   
+
     <header>
         <div>
             <h1>SUDOKU</h1>
         </div>
     </header>
+
     <section>
+      <div class="wraper btn">
+        <div>
+          Difficulty: <b class="diff-text"></b>
+        </div>
+        <button class="new-btn">Give me new</button>
+      </div>
+
       <table class="sudoku-table" cellspacing="0"></table>
+      
+      <!-- TODO Redo errrors -->
       <div class="succ wraper hide">
         <p></p>
       </div>
       <div class="err wraper hide">
         <p></p>
       </div>
-      <div class="btn wraper">
+
+      <div class="wraper btn">
         <button class="submit-btn">Submit</button>
-        <button class="reset-btn">Reset</button>
-        <button class="fill-btn">Fill</button>
+        <div>
+            <button class="reset-btn">Reset</button>
+            <button class="fill-btn">Fill solution</button>
+        </div>
       </div>
     </section>
+    <!-- TODO: Fix white-spacing after footer -->
+    <footer>
+      &copy 2024 No rights are reserved 
+    </footer>
   </body>
+  
   <script src="Scripts/index.js"></script>
 </html>

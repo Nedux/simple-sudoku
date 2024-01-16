@@ -10,74 +10,101 @@ let board_h = 0;
 let board_diff = "None";
 
 
+let tableDomNode = document.body.querySelectorAll("table")[0];
 
-GetBoardData().then(jsonData => {
-    board = jsonData.newboard.grids[0].value;
-    board_solution = ConvertMatrixToString(jsonData.newboard.grids[0].solution);
+GetNewBoardData();
+
+let resetBtnDomN = document.body.getElementsByClassName("reset-btn")[0];
+resetBtnDomN.addEventListener("click", ResetInput);
+
+let errBlockDomN = document.body.getElementsByClassName('err')[0];
+
+let succBlockDomN = document.body.getElementsByClassName('succ')[0];
+
+let submitBtnDomN = document.body.getElementsByClassName("submit-btn")[0];
+submitBtnDomN.addEventListener("click", SubmitData);
+
+let fillBtnDomN = document.body.getElementsByClassName('fill-btn')[0];
+fillBtnDomN.addEventListener("click", FillData);
+
+let newBtnDomN = document.body.getElementsByClassName('new-btn')[0];
+newBtnDomN.addEventListener("click", GetNewBoardData);
+
+function GetNewBoardData()
+{
+    // TODO insert loading wheel here.
+    ClearBoard();
+
+    GetBoardData().then(jsonData => {
+        board = jsonData.newboard.grids[0].value;
+        board_solution = ConvertMatrixToString(jsonData.newboard.grids[0].solution);
+        
+        board_w = jsonData.newboard.grids[0].value.length;
+        board_h = jsonData.newboard.grids[0].value[0].length;
+        board_diff = jsonData.newboard.grids[0].difficulty;
+
+        var diffTextDomN  = document.body.getElementsByClassName('diff-text')[0];
+        diffTextDomN.innerHTML = board_diff;
+        
+        InitBoard(board_w, board_h);
+    });
+}
+
+function ClearBoard()
+{
+    while(tableDomNode.hasChildNodes())
+        tableDomNode.removeChild(tableDomNode.firstChild)
     
-    board_w = jsonData.newboard.grids[0].value.length;
-    board_h = jsonData.newboard.grids[0].value[0].length;
-    board_diff = jsonData.newboard.grids[0].difficulty;
-    
-    InitBoard(board_w, board_h);
-});
-
-let resetBtn = document.body.getElementsByClassName("reset-btn")[0];
-resetBtn.addEventListener("click", ResetInput);
-
-let errBlock = document.body.getElementsByClassName('err')[0];
-
-let succBlock = document.body.getElementsByClassName('succ')[0];
-
-let submitBtn = document.body.getElementsByClassName("submit-btn")[0];
-submitBtn.addEventListener("click", SubmitData);
-
-let fillBtn = document.body.getElementsByClassName('fill-btn')[0];
-fillBtn.addEventListener("click", FillData);
+    refToBoard = [];
+    board_solution = "";
+    board_w = 0;
+    board_h = 0;
+    board_diff = "Unknown";
+}
 
 function InitBoard(board_h, board_w)
 {
-    let table = document.body.querySelectorAll("table")[0];
-    
-    if(table && board_h > 0 && board_w > 0)
+    if(tableDomNode && board_h > 0 && board_w > 0)
     {
         for(var i = 0; i < board_h; i++)
         {
             const row = document.createElement('tr');
             for(var j = 0; j < board_w; j++)
             {
-                const input = CreateInput(i, j);
+                const inputDomN = CreateInput(i, j);
                 
                 var arrIndex = i * board_h + j;
-                refToBoard[arrIndex] = input;
+                refToBoard[arrIndex] = inputDomN;
                 const data = document.createElement('td');
-                data.appendChild(input);
+                data.appendChild(inputDomN);
                 row.appendChild(data);
             }
-            table.appendChild(row);
+            tableDomNode.appendChild(row);
         }
     }
 }
 
 function CreateInput(y, x){
+    let inputDomN;
+
     if(board[y][x] !== 0){  
-        input = document.createElement('div');
-        input.innerHTML = board[y][x];
-        input.disabled = true;
-        input.classList.add(PRE_FILLED_CLASS);          
+        inputDomN = document.createElement('div');
+        inputDomN.innerHTML = board[y][x];
+        inputDomN.disabled = true;
+        inputDomN.classList.add(PRE_FILLED_CLASS);          
     } 
     else{
-        input = document.createElement('input');
-        input.setAttribute("type", "string");
-        input.setAttribute("autocomplete", "off");
-        input.addEventListener("input", (e)=>{  
+        inputDomN = document.createElement('input');
+        inputDomN.setAttribute("type", "string");
+        inputDomN.setAttribute("autocomplete", "off");
+        inputDomN.addEventListener("input", (e)=>{  
             if(!(INPUT_REGEX.test(e.target.value))){
                 e.target.value =  e.target.value.slice(0, -1);
             }
         });
     }
     
-    return input;
+    return inputDomN;
 }
 
 function ResetInput(){
@@ -130,31 +157,31 @@ function checkSolution(solution){
 }
 
 function ShowError(text){
-    errBlock.childNodes[1].innerHTML = text;
+    errBlockDomN.childNodes[1].innerHTML = text;
     ToggleSucess(false);
     ToggleError(true);
 }
 
 function ToggleError(show){
     if(show){
-        errBlock.classList.remove(HIDE_CLASS);
+        errBlockDomN.classList.remove(HIDE_CLASS);
     }
     else{
-        errBlock.classList.add(HIDE_CLASS);
+        errBlockDomN.classList.add(HIDE_CLASS);
     }
 }
 
 function ShowSuccess(text){
-    succBlock.childNodes[1].innerHTML = text;
+    succBlockDomN.childNodes[1].innerHTML = text;
     ToggleSucess(true);
 }
 
 function ToggleSucess(show){
     if(show){
-        succBlock.classList.remove(HIDE_CLASS);
+        succBlockDomN.classList.remove(HIDE_CLASS);
     }
     else{
-        succBlock.classList.add(HIDE_CLASS);
+        succBlockDomN.classList.add(HIDE_CLASS);
     }
 }
 

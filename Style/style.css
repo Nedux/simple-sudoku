@@ -1,14 +1,7 @@
-.pre-filled {
-    
-    color: rgb(24, 24, 24);
-    font-size: 32px;
-    text-align: center;
-    border: none;
-}
-
 h1{
     margin-bottom: 0px;
 }
+
 table{
     margin: auto;
     border: solid black 4px;
@@ -26,7 +19,6 @@ table tr div{
 table tr td{
     border-bottom: solid 1px;
 }
-
 
 table tr:nth-child(3n) td
 {
@@ -59,9 +51,11 @@ table tr td input:focus{
 
 .wraper
 {
+    margin: 0 auto;
+    max-width: 520px;
     display: flex;
-    font-weight: bold;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .succ
@@ -82,20 +76,16 @@ table tr td input:focus{
     display: none;
 }
 
-.btn
-{
-    margin-top: 5px;
-}
-.btn button:nth-child(1)
-{
-    margin-right: 30px;
+.pre-filled {
+    color: rgb(24, 24, 24);
+    font-size: 32px;
+    text-align: center;
+    border: none;
 }
 
 .btn button
 {
     user-select: none;
-    height: 30px;
-    width: 75px;
 }
 
 .btn button:hover
@@ -103,3 +93,8 @@ table tr td input:focus{
     cursor: pointer;
 }
 
+footer
+{
+    text-align: center;
+    padding-top: 10%;
+}
