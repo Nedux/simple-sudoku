@@ -22,7 +22,7 @@ let errBlockDomN = document.body.getElementsByClassName('err')[0];
 let succBlockDomN = document.body.getElementsByClassName('succ')[0];
 
 let submitBtnDomN = document.body.getElementsByClassName("submit-btn")[0];
-submitBtnDomN.addEventListener("click", SubmitData);
+submitBtnDomN.addEventListener("click", SubmitDataWithDelay);
 
 let fillBtnDomN = document.body.getElementsByClassName('fill-btn')[0];
 fillBtnDomN.addEventListener("click", FillData);
@@ -121,6 +121,19 @@ function ResetInput(){
                 refToBoard[refToBoardIndex].value = '';
             }
         }
+    }
+}
+
+function SubmitDataWithDelay(){
+    // Users should know that the error was refreshed
+    if(!errBlockDomN.classList.contains(HIDE_CLASS))
+    {
+        ToggleError(false);
+        setTimeout(SubmitData, 500)
+    }
+    else
+    {
+        SubmitData();
     }
 }
 
