@@ -1,5 +1,8 @@
 let refToBoard = [];
 const HIDE_CLASS = 'hide';
+const SUCC_CLASS = 'succ';
+const SHOW_CLASS = 'show';
+const ERR_CLASS = 'err';
 const PRE_FILLED_CLASS = 'pre-filled';
 const INPUT_REGEX = /^[1-9]$/;
 
@@ -9,31 +12,32 @@ let board_w = 0;
 let board_h = 0;
 let board_diff = "None";
 
-
+let sectiondDomNode = document.body.querySelectorAll("section")[0];
 let tableDomNode = document.body.querySelectorAll("table")[0];
+let loadSpinnerN = document.body.getElementsByClassName("loader-wraper")[0];
 
 GetNewBoardData();
 
 let resetBtnDomN = document.body.getElementsByClassName("reset-btn")[0];
 resetBtnDomN.addEventListener("click", ResetInput);
 
-let errBlockDomN = document.body.getElementsByClassName('err')[0];
-
-let succBlockDomN = document.body.getElementsByClassName('succ')[0];
+let msgBlockDomN = document.body.getElementsByClassName('msg')[0];
 
 let submitBtnDomN = document.body.getElementsByClassName("submit-btn")[0];
-submitBtnDomN.addEventListener("click", SubmitDataWithDelay);
+submitBtnDomN.addEventListener("click", SubmitData);
 
 let fillBtnDomN = document.body.getElementsByClassName('fill-btn')[0];
 fillBtnDomN.addEventListener("click", FillData);
 
 let newBtnDomN = document.body.getElementsByClassName('new-btn')[0];
 newBtnDomN.addEventListener("click", GetNewBoardData);
+let snackBarDomN = document.body.getElementsByClassName("snackbar")[0];
 
 function GetNewBoardData()
 {
-    // TODO insert loading wheel here.
     ClearBoard();
+    loadSpinnerN.classList.remove(HIDE_CLASS);
+    sectiondDomNode.classList.add(HIDE_CLASS);
 
     GetBoardData().then(jsonData => {
         board = jsonData.newboard.grids[0].value;
@@ -47,6 +51,13 @@ function GetNewBoardData()
         diffTextDomN.innerHTML = board_diff;
         
         InitBoard(board_w, board_h);
+        loadSpinnerN.classList.add(HIDE_CLASS);
+        sectiondDomNode.classList.remove(HIDE_CLASS);
+    }).catch(error =>{
+        console.log("Error occured: " + error.message);
+        loadSpinnerN.classList.add(HIDE_CLASS);
+        let ripApiErrN = document.body.getElementsByClassName("rip-api-err")[0];
+        ripApiErrN.classList.remove(HIDE_CLASS);
     });
 }
 
@@ -107,10 +118,7 @@ function CreateInput(y, x){
     return inputDomN;
 }
 
-function ResetInput(){
-    ToggleError(false);
-    ToggleSucess(false);
-    
+function ResetInput(){    
     for(var i = 0; i < board_h; i++){
         for(var j = 0; j < board_w; j++){
             var refToBoardIndex = i * board_h + j;
@@ -124,19 +132,6 @@ function ResetInput(){
     }
 }
 
-function SubmitDataWithDelay(){
-    // Users should know that the error was refreshed
-    if(!errBlockDomN.classList.contains(HIDE_CLASS))
-    {
-        ToggleError(false);
-        setTimeout(SubmitData, 500)
-    }
-    else
-    {
-        SubmitData();
-    }
-}
-
 function SubmitData(){
     let sumbitedData = [];
     
@@ -147,7 +142,7 @@ function SubmitData(){
         }
         sumbitedData[i] = refToBoard[i].value;
     }
-    ToggleError(false);
+    
     sumbitedData = sumbitedData.join('');
     if(board_solution === ""){
         GetSolutionData().then(jsonData => {
@@ -170,42 +165,47 @@ function checkSolution(solution){
 }
 
 function ShowError(text){
-    errBlockDomN.childNodes[1].innerHTML = text;
-    ToggleSucess(false);
-    ToggleError(true);
-}
-
-function ToggleError(show){
-    if(show){
-        errBlockDomN.classList.remove(HIDE_CLASS);
-    }
-    else{
-        errBlockDomN.classList.add(HIDE_CLASS);
-    }
+    msgBlockDomN.childNodes[1].innerHTML = text;
+    msgBlockDomN.classList.remove(SUCC_CLASS);
+    msgBlockDomN.classList.add(ERR_CLASS);
+    ToggleMsg(true);
 }
 
 function ShowSuccess(text){
-    succBlockDomN.childNodes[1].innerHTML = text;
-    ToggleSucess(true);
+    msgBlockDomN.childNodes[1].innerHTML = text;
+    msgBlockDomN.classList.remove(ERR_CLASS);
+    msgBlockDomN.classList.add(SUCC_CLASS);
+    ToggleMsg(true);
 }
 
-function ToggleSucess(show){
+function ToggleMsg(show){   
     if(show){
-        succBlockDomN.classList.remove(HIDE_CLASS);
+        ShowSnackBar();
     }
     else{
-        succBlockDomN.classList.add(HIDE_CLASS);
+        snackBarDomN.classList.remove("show");
     }
 }
 
+function ShowSnackBar()
+{
+    if(!snackBarDomN.classList.contains(SHOW_CLASS))
+    {
+        snackBarDomN.classList.add(SHOW_CLASS);
+        setTimeout(function(){ 
+            snackBarDomN.classList.remove("show");
+            msgBlockDomN.childNodes[1].innerHTML = ''; 
+        }, 2990);
+    }
+}
+
+// Helper functions
 function FillData()
 {
     for(let i = 0; i < board_h * board_w; i++){
         refToBoard[i].value = board_solution[i];
     }
 }
-
-// Helper functions
 
 function ConvertMatrixToString(matrix)
 {
@@ -229,6 +229,6 @@ async function GetBoardData() {
 
         return data;
     } catch (error) {
-        console.error('Error fetching data:', error.message);
+        throw error;
     }
 }

@@ -1,5 +1,5 @@
 /* Font: https://fonts.google.com/selection  */
-/* Color pallete:  https://colorhunt.co/palette/1d2b537e2553ff004dfaef5d*/
+/* Color pallete:  https://colorhunt.co/palette/1d2b537e2553ff004dfaef5d */
 @import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body{
@@ -8,12 +8,16 @@ body{
     font-weight: 400;
     font-style: normal;
     min-width: 530px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 header{
     display: flex;
     background-color: #1D2B53;
     color: whitesmoke;
     padding: 20px 0;
+    box-shadow: rgb(213, 217, 217) 0 2px 5px 0;
 }
 header h1{
     margin: 0 auto;
@@ -55,6 +59,7 @@ table tr td:nth-child(3n+1)
 table tr td
 {
     user-select: none;
+    -webkit-user-select: none;
     border-left: solid black 1px;
 }
 
@@ -81,26 +86,28 @@ table tr td input:focus{
     align-items: center;
 }
 
+.msg{
+    display: flex;
+    justify-content: center;
+    min-height: 19px;
+    font-weight: bold;
+    font-size: larger;
+}
+.msg p{
+    margin: 0;
+}
+
 .top{
     padding-bottom: 10px;
+    font-size: 16px;
 }
 
-.succ
-{
+.succ{
     color: #82DD55;
 }
-.err
-{
-    color: #FF004D;
-}
-.err p, .succ p
-{
-    margin-top: 0px;
-}
 
-.hide
-{
-    display: none;
+.err{
+    color: #FF004D;
 }
 
 .pre-filled {
@@ -114,13 +121,16 @@ table tr td input:focus{
     margin-right: 10px;
 }
 
-footer
-{
-    text-align: center;
-    padding-top: 150px;
+.btn-tupple{
+    user-select: none;
+    -webkit-user-select: none;
 }
 
+.hide{
+    visibility: hidden;
+}
 
+/* TODO: Addapt buttons to mobile (bigger font) */
 /* Button style from: https://getcssscan.com/css-buttons-examples */
 .btn-styled {
   background-color: #fff;
@@ -128,20 +138,18 @@ footer
   border-radius: 8px;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   box-sizing: border-box;
-  color: #0f1111;
   cursor: pointer;
   font-family: "Arvo", serif;
   font-weight: 500;
-  display: inline-block;
-  font-size: 13px;
+  padding: 0 8px 0 11px;
+  font-size: 16px;
   line-height: 29px;
-  padding: 0 7px 0 8px;
   text-align: center;
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 100px;
+  min-width: 100px;
 }
 
 .btn-styled:hover {
@@ -152,4 +160,91 @@ footer
   border-color: #1d2b5375;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   outline: 0;
+}
+
+footer{
+    margin-top: auto;
+    text-align: center;
+    border-top: 1px solid #d5d9d9;
+}
+footer p{
+    padding: 30px 0 25px 0;
+    margin: auto;
+}
+
+/* Snackbar */
+/* Source: https://www.w3schools.com/howto/howto_js_snackbar.asp */
+.snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 12%;
+    font-size: 17px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+  
+.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+  
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 12%; opacity: 1;}
+}
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 12%; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 12%; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+@keyframes fadeout {
+    from {bottom: 12%; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+/* Source: https://cssloaders.github.io/ */
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #7E2553;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
+
+.rip-api-err{
+    font-size: larger;
+    text-align: center;
+}
+
+.f-middle{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./Style/style.css">
   </head>
   <body>   
-
+    <!-- TODO: Add help modal in header-->
     <header>
       <h1>SUDOKU</h1>
     </header>
@@ -18,31 +18,40 @@
           <!-- TODO: add a tooltip which would explain difficulty -->
           Difficulty: <b class="diff-text"></b> 
         </div>
-        <button class="new-btn btn-styled">Give me new</button>
+        <button class="new-btn btn-styled">New Puzzle</button>
       </div>
-
+      
       <table class="sudoku-table" cellspacing="0"></table>
       
-      <!-- TODO Redo errrors -->
-      <div class="succ wraper hide">
-        <p></p>
-      </div>
-      <div class="err wraper hide">
-        <p></p>
-      </div>
-
       <div class="wraper btn">
         <button class="submit-btn btn-styled">Check</button>
-        <div>
-            <button class="reset-btn btn-styled">Reset</button>
-            <button class="fill-btn btn-styled">Fill</button>
+        <div class="btn-tupple">
+          <!--TODO Make it inactive if no input is pressented -->
+          <button class="reset-btn btn-styled">Reset</button>
+          <button class="fill-btn btn-styled">Fill</button>
         </div>
       </div>
     </section>
-    <!-- TODO: Fix white-spacing after footer -->
     <footer>
-      &copy 2024 No rights are reserved 
+      <p>
+        &copy 2024 No rights are reserved 
+      </p>
     </footer>
+
+    <div class="loader-wraper f-middle hide">
+      <span class="loader"></span>
+    </div>
+
+    <div class="rip-api-err f-middle err hide">
+      <p>Something went wrong...<br>Please, try to refresh.</p>
+    </div>
+    
+    <div class="snackbar">
+      <div class="msg">
+        <p></p>
+      </div>
+    </div>
+    
   </body>
   
   <script src="Scripts/index.js"></script>
