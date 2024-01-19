@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./Style/style.css">
   </head>
   <body>   
-    <!-- TODO: Add help modal in header-->
+    <!-- TODO: Add "help" modal in header-->
     <header>
       <h1>SUDOKU</h1>
     </header>
@@ -15,9 +15,10 @@
     <section>
       <div class="wraper btn top">
         <div>
-          <!-- TODO: add a tooltip which would explain difficulty -->
+          <!-- TODO: add a tooltip which would explain random difficulty -->
           Difficulty: <b class="diff-text"></b> 
         </div>
+        <!-- TODO: add safety checks on buttons that cause irreversible changes -->
         <button class="new-btn btn-styled">New Puzzle</button>
       </div>
       
@@ -27,11 +28,12 @@
         <button class="submit-btn btn-styled">Check</button>
         <div class="btn-tupple">
           <!--TODO Make it inactive if no input is pressented -->
-          <button class="reset-btn btn-styled">Reset</button>
-          <button class="fill-btn btn-styled">Fill</button>
+          <button class="reset-btn btn-styled">Clear Board</button>
+          <button class="fill-btn btn-styled">Show Solution</button>
         </div>
       </div>
     </section>
+    
     <footer>
       <p>
         &copy 2024 No rights are reserved 

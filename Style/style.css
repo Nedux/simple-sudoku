@@ -1,34 +1,56 @@
-/* Font: https://fonts.google.com/selection  */
 /* Color pallete:  https://colorhunt.co/palette/1d2b537e2553ff004dfaef5d */
+/* Font: https://fonts.google.com/selection  */
 @import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 body{
     margin: 0;
+    min-width: 530px;
+    min-height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    
     font-family: "Arvo", serif;
     font-weight: 400;
     font-style: normal;
-    min-width: 530px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+
+    
 }
+
 header{
+    padding: 20px 0;
+    
     display: flex;
+    
     background-color: #1D2B53;
     color: whitesmoke;
-    padding: 20px 0;
     box-shadow: rgb(213, 217, 217) 0 2px 5px 0;
+    
+    user-select: none;
+    -webkit-user-select: none;
 }
+
 header h1{
     margin: 0 auto;
+
     font-weight: 400;
 }
 
 section{
     padding-top: 50px;
+    margin-bottom: 50px;
 }
 
-table{
+section .top{
+    padding-bottom: 10px;
+    
+    font-size: 16px;
+    
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+section table{
     margin: auto;
     border: solid black 4px;
     border-bottom: black solid 1px;
@@ -36,14 +58,12 @@ table{
     margin-bottom: 20px;
 }
 
-table tr div{
-    border-bottom: solid black 1px;
-    padding: 0;
-    margin: 0;
-}
 
 table tr td{
+    user-select: none;
+    -webkit-user-select: none;
     border-bottom: solid 1px;
+    border-left: solid black 1px;
 }
 
 table tr:nth-child(3n) td
@@ -53,23 +73,18 @@ table tr:nth-child(3n) td
 
 table tr td:nth-child(3n+1)
 {
-    border-left: solid black 3px !important;
-}
-
-table tr td
-{
-    user-select: none;
-    -webkit-user-select: none;
-    border-left: solid black 1px;
+    border-left: solid black 3px;
 }
 
 table tr td input{
-    font-family: "Arvo", serif;
-    font-weight: 600;
-    font-size: 32px;
     width: 50px;
     height: 50px;
     border: 0px;
+    background-color: transparent;
+
+    font-family: "Arvo", serif;
+    font-weight: 600;
+    font-size: 32px;
     text-align: center;
     
 }
@@ -78,28 +93,36 @@ table tr td input:focus{
     outline: none;
 }
 
+table tr td .pre-filled {
+    color: rgb(24, 24, 24);
+    font-size: 30px;
+    text-align: center;
+}
+
+table tr .focused{
+    background-color: #1d2b531e;
+}
+
 .wraper{
     margin: 0 auto;
     max-width: 520px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .msg{
+    min-height: 19px;
+    
     display: flex;
     justify-content: center;
-    min-height: 19px;
+    
     font-weight: bold;
     font-size: larger;
 }
 .msg p{
     margin: 0;
-}
-
-.top{
-    padding-bottom: 10px;
-    font-size: 16px;
 }
 
 .succ{
@@ -108,13 +131,6 @@ table tr td input:focus{
 
 .err{
     color: #FF004D;
-}
-
-.pre-filled {
-    color: rgb(24, 24, 24);
-    font-size: 30px;
-    text-align: center;
-    border: none;
 }
 
 .reset-btn{
@@ -133,23 +149,27 @@ table tr td input:focus{
 /* TODO: Addapt buttons to mobile (bigger font) */
 /* Button style from: https://getcssscan.com/css-buttons-examples */
 .btn-styled {
+  padding: 0 8px 0 11px;
+  min-width: 100px;
   background-color: #fff;
+  
   border: 1px solid #d5d9d9;
   border-radius: 8px;
   box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
   box-sizing: border-box;
   cursor: pointer;
+
   font-family: "Arvo", serif;
   font-weight: 500;
-  padding: 0 8px 0 11px;
   font-size: 16px;
   line-height: 29px;
   text-align: center;
   text-decoration: none;
+  
   user-select: none;
   -webkit-user-select: none;
+  
   touch-action: manipulation;
-  min-width: 100px;
 }
 
 .btn-styled:hover {
@@ -164,29 +184,37 @@ table tr td input:focus{
 
 footer{
     margin-top: auto;
-    text-align: center;
     border-top: 1px solid #d5d9d9;
+    text-align: center;
 }
 footer p{
     padding: 30px 0 25px 0;
     margin: auto;
+    font-weight: bold;
+    color: #1D2B53;
 }
 
 /* Snackbar */
 /* Source: https://www.w3schools.com/howto/howto_js_snackbar.asp */
 .snackbar {
     visibility: hidden;
+    padding: 20px 30px;
     min-width: 250px;
-    text-align: center;
     background-color: #fff;
+
+    border: 1px solid #d5d9d9;
     border-radius: 20px;
-    padding: 16px;
+    box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+    
     position: fixed;
     z-index: 1;
     left: 50%;
-    transform: translate(-50%);
     bottom: 12%;
+    transform: translate(-50%);
+    
+    text-align: center;
     font-size: 17px;
+
     user-select: none;
     -webkit-user-select: none;
 }
@@ -215,15 +243,18 @@ footer p{
     to {bottom: 0; opacity: 0;}
 }
 
+/* Simple Loader */
 /* Source: https://cssloaders.github.io/ */
 .loader {
     width: 60px;
     height: 60px;
-    border: 6px solid #7E2553;
+    display: inline-block;
+    
+    border: 6px solid #1D2B53;
     border-bottom-color: transparent;
     border-radius: 50%;
-    display: inline-block;
     box-sizing: border-box;
+    
     animation: rotation 1s linear infinite;
 }
 
